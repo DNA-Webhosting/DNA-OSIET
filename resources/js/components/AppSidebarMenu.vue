@@ -1,11 +1,11 @@
-<template>
+<template lang="">
     <div>
-        fdsfsdfdsfd
+        SIDEBAR
     </div>
 </template>
 <script setup lang="ts">
 
 </script>
-<style>
+<style lang="">
     
 </style>
