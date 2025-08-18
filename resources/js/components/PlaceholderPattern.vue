@@ -4,7 +4,7 @@
     <div class="gradient-bg rounded-2xl w-full py-24  mb-8 border-1 border-[#0077FF] relative overflow-hidden">
       <div class="relative px-12">
         <h2 class="text-4xl font-bold text-white">Tableau de bord</h2>
-        <p class="text-xl text-white/90">Vue d'ensemble de votre système de gestion médical</p>
+        <p class="text-xl text-white/90 leading-8">Vue d'ensemble de votre système de gestion médical</p>
       </div>
       <div class="absolute transform -translate-y-1/2 w-full opacity-50 mt-26">
         <img src="/images/fondbleu.jpg" alt="Fond bleu" class="w-full h-full">
@@ -56,7 +56,7 @@
               :key="activity.id"
               class="flex items-center space-x-4 py-4 border-b border-black/15 hover:bg-gray-50 transition-colors duration-200"
             >
-              <div :class="`p-2 rounded-lg ${activity.iconBg}`">
+              <div :class="`w-full max-w-10 text-center p-2 h-10 rounded-lg ${activity.iconBg}`">
                 <i :class="`${activity.icon} ${activity.iconColor}`"></i>
               </div>
               <div class="flex-1">
@@ -124,7 +124,7 @@
             :class="`border-l-4 p-4 rounded-lg ${alert.borderColor} ${alert.bgColor}`"
           >
             <div class="flex items-center space-x-3">
-              <i :class="`${alert.icon} text-lg ${alert.iconColor} `"></i>
+              <i :class="`${alert.icon} text-3xl ${alert.iconColor} `"></i>
               <div class="flex-1">
                 <h4 class="font-semibold text-gray-900">{{ alert.title }}</h4>
                 <p class="text-sm text-gray-600">{{ alert.description }}</p>
@@ -171,7 +171,7 @@ const statsCards = ref([
     value: '305',
     trend: '+3% articles',
     trendIcon: 'fa-arrow-up',
-    trendColor: 'text-orange-600',
+    trendColor: 'text-green-600',
     icon: 'fas fa-pills',
     iconBg: 'bg-[#FF6200]',
     iconColor: 'text-white',
@@ -181,7 +181,7 @@ const statsCards = ref([
     id: 4,
     title: 'Médecins disponibles',
     value: '14',
-    trend: '↑ Médecins disponibles',
+    trend: 'Médecins disponibles',
     trendIcon: 'fa-arrow-up',
     trendColor: 'text-blue-600',
     icon: 'fas fa-user-md',
@@ -216,8 +216,8 @@ const recentActivities = ref([
     id: 3,
     title: 'Alerte stock',
     description: 'Inventaire • Stock faible • 90 • Il y a 30 minutes',
-    status: 'En attente',
-    statusColor: 'bg-yellow-100 text-yellow-800',
+    status: 'En retard',
+    statusColor: 'bg-red-200 text-[#F3001A]',
     icon: 'fas fa-exclamation-triangle',
     iconBg: 'bg-yellow-100',
     iconColor: 'text-yellow-600'
@@ -227,7 +227,7 @@ const recentActivities = ref([
     title: 'Réception stock',
     description: 'Magasin Des Webhosting • 150 articles • Il y a 3 heures',
     status: 'En attente',
-    statusColor: 'bg-yellow-100 text-yellow-800',
+    statusColor: 'bg-yellow-200 text-[#FF6200]',
     icon: 'fas fa-truck',
     iconBg: 'bg-orange-100',
     iconColor: 'text-orange-600'
@@ -250,7 +250,7 @@ const waitingPatients = ref([
     name: 'DNA Webhosting',
     description: 'Consultation générale • 14:30',
     status: 'En attente',
-    statusColor: 'bg-yellow-100 text-yellow-800',
+    statusColor: 'bg-yellow-200 text-[#FF6200]',
     avatar: 'https://images.pexels.com/photos/5215024/pexels-photo-5215024.jpeg?auto=compress&cs=tinysrgb&w=64&h=64&fit=crop&crop=face'
   },
   {
@@ -274,7 +274,7 @@ const waitingPatients = ref([
     name: 'DNA Webhosting',
     description: 'Urgence • Immédiat',
     status: 'Urgent',
-    statusColor: 'bg-red-100 text-red-800',
+    statusColor: 'bg-red-100 text-[#FF0000]',
     avatar: 'https://images.pexels.com/photos/5452266/pexels-photo-5452266.jpeg?auto=compress&cs=tinysrgb&w=64&h=64&fit=crop&crop=face'
   },
   {
@@ -282,7 +282,7 @@ const waitingPatients = ref([
     name: 'DNA Webhosting',
     description: 'Urgence • Immédiat',
     status: 'Urgent',
-    statusColor: 'bg-red-100 text-red-800',
+    statusColor: 'bg-red-100 text-[#FF0000]',
     avatar: 'https://images.pexels.com/photos/5452288/pexels-photo-5452288.jpeg?auto=compress&cs=tinysrgb&w=64&h=64&fit=crop&crop=face'
   }
 ])
@@ -294,7 +294,7 @@ const alerts = ref([
     description: 'Réapprovisionnement urgent requis',
     icon: 'fas fa-exclamation-triangle',
     iconColor: 'text-red-600',
-    bgColor: 'bg-red-50',
+    bgColor: 'bg-red-100',
     borderColor: 'border-red-500'
   },
   {
@@ -303,7 +303,7 @@ const alerts = ref([
     description: 'Relances automatiques envoyées',
     icon: 'fas fa-exclamation-circle',
     iconColor: 'text-yellow-600',
-    bgColor: 'bg-yellow-50',
+    bgColor: 'bg-yellow-100',
     borderColor: 'border-yellow-500'
   },
   {
@@ -312,7 +312,7 @@ const alerts = ref([
     description: 'Toutes les données sont sécurisées',
     icon: 'fas fa-check-circle',
     iconColor: 'text-green-600',
-    bgColor: 'bg-green-50',
+    bgColor: 'bg-green-100',
     borderColor: 'border-green-500'
   },
   {
@@ -321,7 +321,7 @@ const alerts = ref([
     description: '5 sociétés ont des paiements en retard de plus de 30 jours',
     icon: 'fas fa-exclamation-circle',
     iconColor: 'text-red-600',
-    bgColor: 'bg-red-50',
+    bgColor: 'bg-red-100',
     borderColor: 'border-red-500'
   },
   {
@@ -330,7 +330,7 @@ const alerts = ref([
     description: 'Maintenance programmée dimanche de 2h à 4h du matin',
     icon: 'fas fa-info-circle',
     iconColor: 'text-blue-600',
-    bgColor: 'bg-blue-50',
+    bgColor: 'bg-blue-100',
     borderColor: 'border-blue-500'
   }
 ])
