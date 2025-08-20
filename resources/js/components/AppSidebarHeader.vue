@@ -85,7 +85,7 @@
       </div>
 
       <!-- Avatar et menu profil -->
-      <div class="relative">
+      <div class="relative" ref="profileMenuRef">
         <div @click="toggleProfileMenu"
           class="flex flex-row items-center justify-between pl-4 gap-4 w-full max-w-[200px] border-l-2 border-[#764BA2] cursor-pointer transition-all duration-300 hover:bg-gray-50">
           <div class="p-[1px] w-full max-w-8 h-8 rounded-full transition-transform duration-300 hover:scale-110"
@@ -172,10 +172,12 @@
 
 <script setup lang="ts">
 import { ref, nextTick } from 'vue'
+import { onClickOutside } from '@vueuse/core' // plus pro et dynamique
 
 const isProfileMenuOpen = ref(false)
 const isMobileSearchOpen = ref(false)
 const mobileSearchInput = ref<HTMLInputElement>()
+const profileMenuRef = ref<HTMLElement | null>(null)
 
 const toggleProfileMenu = () => isProfileMenuOpen.value = !isProfileMenuOpen.value
 const closeProfileMenu = () => isProfileMenuOpen.value = false
@@ -186,11 +188,8 @@ const toggleMobileSearch = async () => {
 }
 const closeMobileSearch = () => setTimeout(() => isMobileSearchOpen.value = false, 150)
 
-// Close profile menu if click outside
-document.addEventListener('click', (e) => {
-  const target = e.target as HTMLElement
-  if (!target.closest('.relative')) isProfileMenuOpen.value = false
-})
+// Fermer automatiquement le menu si clic dehors
+onClickOutside(profileMenuRef, () => closeProfileMenu())
 </script>
 
 <style scoped>
