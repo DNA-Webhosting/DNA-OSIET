@@ -7,7 +7,7 @@
           <!-- Boutons de filtre -->
           <div class="flex flex-wrap items-center justify-between md:gap-1.5 lg:gap-4">
             <button
-              class="flex items-center gap-1.5 px-2.5 py-1.5 md:px-1 md:text-xs sm:px-3 sm:py-2 text-xs sm:text-sm font-medium text-gray-700 bg-white border border-black rounded-md hover:bg-gray-50 transition-colors"
+              class="flex items-center gap-1.5 px-2.5 py-1.5 md:px-1 md:text-xs lg:text-md sm:px-3 sm:py-2 text-xs sm:text-sm font-medium text-gray-700 bg-white border border-black rounded-md hover:bg-gray-50 transition-colors"
             >
               <svg class="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
@@ -26,7 +26,7 @@
               :key="i"
               @click="activeFilter = filter.value"
               :class="[
-                'px-2.5 py-1.5 sm:px-3 md:px-1 md:text-xs sm:py-2 text-xs sm:text-sm font-medium rounded-md transition-colors',
+                'px-2.5 py-1.5 sm:px-3 md:px-1 md:text-xs lg:text-[14px] sm:py-2 text-xs sm:text-sm font-medium rounded-md transition-colors',
                 activeFilter === filter.value
                   ? filter.activeClass
                   : filter.defaultClass
@@ -71,7 +71,7 @@
       </div>
 
       <!-- Tableau Desktop -->
-      <div class="hidden lg:block bg-white rounded-b-lg shadow-sm overflow-hidden animate-fade-in-up">
+      <div class="hidden lg:block bg-blue-100 rounded-b-lg shadow-sm overflow-hidden animate-fade-in-up">
         <div class="overflow-x-auto">         
           <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-500/10">
@@ -79,7 +79,7 @@
                 <th
                   v-for="(col, i) in tableColumns"
                   :key="i"
-                  class="px-6 py-3 text-xs font-medium text-gray-600 uppercase tracking-wider"
+                  class="px-6 py-3 text-xs font-semibold text-black/40 uppercase tracking-wider"
                 >
                   {{ col }}
                 </th>
