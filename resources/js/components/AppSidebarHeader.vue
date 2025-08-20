@@ -3,7 +3,7 @@
         class="flex flex-row bg-white w-full h-16 items-center justify-between border-b border-gray-300 shadow-sm px-2 lg:px-6 animate-slideDown">
 
         <!-- logo -->
-        <div class="flex flex-row items-center w-full gap-2 lg:gap-5 animate-fadeInLeft">
+        <div class="flex items-center w-full gap-2 lg:gap-5 animate-fadeInLeft">
             <div class="flex">
                 <img src="/images/MEDIALOG.png" alt="Logo"
                     class="w-full max-w-32 transition-transform duration-300 hover:scale-105">
@@ -15,7 +15,7 @@
         </div>
 
         <!-- Recherche -->
-        <div class="w-full hidden md:block animate-fadeInUp">
+        <div class="w-full hidden md:mr-14 md:block animate-fadeInUp">
             <div
                 class="bg-black/10 w-full h-full flex flex-row items-center rounded-lg px-2 border-2 border-[#e0e0e0] transition-all duration-300 hover:border-blue-300 focus-within:border-blue-400">
                 <div class="">
@@ -101,8 +101,8 @@
                     </div>
 
                     <div class="flex flex-col w-full hidden sm:block">
-                        <p class="font-bold font-inter text-[#1F2937] text-sm">Dr. Dna Webhosting</p>
-                        <p class="font-regular text-[#6B7280] text-xs">
+                        <p class="font-bold font-inter text-[#1F2937] md:text-[10px] lg:text-sm">Dr. Dna Webhosting</p>
+                        <p class="font-regular text-[#6B7280] md:text-[10px] lg:text-xs">
                             Administrateur
                         </p>
                     </div>
@@ -116,7 +116,7 @@
                     leave-from-class="opacity-100 scale-100 translate-y-0"
                     leave-to-class="opacity-0 scale-95 translate-y-[-10px]">
                     <div v-if="isProfileMenuOpen"
-                        class="absolute right-0 top-full mt-2 w-56 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
+                        class="absolute top-full mt-3 w-full max-w-56 bg-white rounded-lg shadow-lg border border-gray-200 py-2">
 
                         <!-- User Info -->
                         <div class="px-4 py-3 border-b border-gray-100">

@@ -1,72 +1,89 @@
 <template>
-  <main class="w-full mx-auto px-4 sm:px-6">
+  <main class="w-full mx-auto px-2 sm:px-4">
     <!-- Hero Section -->
-    <div class="gradient-bg rounded-2xl w-full py-24  mb-8 border-1 border-[#0077FF] relative overflow-hidden">
-      <div class="relative px-12">
-        <h2 class="text-4xl font-bold text-white">Tableau de bord</h2>
-        <p class="text-xl text-white/90 leading-8">Vue d'ensemble de votre système de gestion médical</p>
+    <div
+      class="gradient-bg rounded-2xl w-full mb-6 sm:mb-8 border border-[#0077FF] relative overflow-hidden animate-on-load animate-fade-in-up">
+      <!-- Version Mobile - Texte centré avec animation -->
+      <div class="block lg:hidden py-12 sm:py-16">
+        <div class="text-center px-4">
+          <h2 class="text-2xl sm:text-3xl font-bold text-white mb-3 text-glow-animation">
+            Tableau de bord
+          </h2>
+          <p class="text-base sm:text-lg text-white/90 leading-6 animate-pulse-slow">
+            Vue d'ensemble de votre système de gestion médical
+          </p>
+        </div>
+        <div class="absolute transform -translate-y-1/2 w-full h-full -mt-12 opacity-20">
+          <img src="/images/fondbleu.jpg" alt="Fond médical" class="w-full h-full object-cover">
+        </div>
       </div>
-      <div class="absolute transform -translate-y-1/2 w-full opacity-50 mt-26">
-        <img src="/images/fondbleu.jpg" alt="Fond bleu" class="w-full h-full">
-      </div>
-      <div class="absolute right-4 top-1/2 transform -translate-y-1/2 text-white/30">
-        <i class="fas fa-heartbeat text-9xl px-10"></i>
+
+      <!-- Version Desktop/Tablette - Design complet -->
+      <div class="hidden lg:block py-16 xl:py-24">
+        <div class="relative px-6 xl:px-12">
+          <h2 class="text-3xl xl:text-4xl font-bold text-white animate-float">
+            Tableau de bord
+          </h2>
+          <p class="text-lg xl:text-xl text-white/90 leading-7 xl:leading-8 mt-2">
+            Vue d'ensemble de votre système de gestion médical
+          </p>
+        </div>
+        <div class="absolute transform -translate-y-1/2 w-full opacity-50 mt-5 xl:mt-12">
+          <img src="/images/fondbleu.jpg" alt="Fond médical" class="w-full h-full object-cover">
+        </div>
+        <div class="absolute right-4 xl:right-8 top-1/2 transform -translate-y-1/2 text-white/30 animate-pulse-slow">
+          <i class="fas fa-heartbeat text-6xl xl:text-9xl"></i>
+        </div>
       </div>
     </div>
 
     <!-- Stats Cards -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-      <div 
-        v-for="stat in statsCards" 
-        :key="stat.id"
-        class="bg-white rounded-xl p-6 shadow-md border-2 hover:shadow-lg transition-all duration-300 card-hover "
-        :class="stat.borderColor"
-      >
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6 mb-6 sm:mb-8">
+      <div v-for="(stat, index) in statsCards" :key="stat.id"
+        class="bg-white rounded-xl p-4 sm:p-6 shadow-md border-2 hover:shadow-lg transition-all duration-300 card-hover animate-on-load animate-fade-in-up"
+        :class="[stat.borderColor, `delay-${(index + 1) * 100}`]">
         <div class="flex items-center justify-between">
-          <div>
-            <h3 class="text-lg font-semibold text-gray-900 mb-2">{{ stat.title }}</h3>
+          <div class="flex-1 min-w-0">
+            <h3 class="text-sm sm:text-lg font-semibold text-gray-900 mb-2 truncate">{{ stat.title }}</h3>
             <div class="flex items-center space-x-2 mb-2">
-              <span class="text-3xl font-bold text-gray-900">{{ stat.value }}</span>
+              <span class="text-2xl sm:text-3xl font-bold text-gray-900">{{ stat.value }}</span>
             </div>
             <div class="flex items-center space-x-1">
-              <i :class="`fas ${stat.trendIcon} text-sm ${stat.trendColor}`"></i>
-              <span :class="`text-sm font-medium ${stat.trendColor}`">{{ stat.trend }}</span>
+              <i :class="`fas ${stat.trendIcon} text-xs sm:text-sm ${stat.trendColor}`"></i>
+              <span :class="`text-xs sm:text-sm font-medium ${stat.trendColor} truncate`">{{ stat.trend }}</span>
             </div>
           </div>
-          <div :class="`p-4 rounded-lg ${stat.iconBg}`">
-            <i :class="`${stat.icon} text-2xl ${stat.iconColor}`"></i>
+          <div :class="`p-3 sm:p-4 rounded-lg ${stat.iconBg} flex-shrink-0 ml-2`">
+            <i :class="`${stat.icon} text-xl sm:text-2xl ${stat.iconColor}`"></i>
           </div>
         </div>
       </div>
     </div>
 
     <!-- Two Column Layout -->
-    <div class="grid grid-cols-1 xl:grid-cols-2 gap-8 mb-8">
+    <div class="grid grid-cols-1 xl:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 mb-6 sm:mb-8">
       <!-- Recent Activities -->
-      <div class="bg-white rounded-xl border-2 border-[#CFCFCF]">
-        <div class="px-5 py-4 border-b border-gray-200">
-          <h3 class="text-xl font-semibold text-black flex items-center underline px-4 py-2 border-l-4 border-green-700">
+      <div class="bg-white rounded-xl border-2 border-[#CFCFCF] animate-on-load animate-fade-in-left delay-500">
+        <div class="px-4 sm:px-5 py-4 border-b border-gray-200">
+          <h3
+            class="text-lg sm:text-xl font-semibold text-black flex items-center underline px-2 sm:px-4 py-2 border-l-4 border-green-700">
             Activités Récentes
           </h3>
         </div>
-        <div class="p-4">
+        <div class="p-3 sm:p-4">
           <div class="space-y-2">
-            <div 
-              v-for="activity in recentActivities" 
-              :key="activity.id"
-              class="flex items-center space-x-4 py-4 border-b border-black/15 hover:bg-gray-50 transition-colors duration-200"
-            >
-              <div :class="`w-full max-w-10 text-center p-2 h-10 rounded-lg ${activity.iconBg}`">
-                <i :class="`${activity.icon} ${activity.iconColor}`"></i>
+            <div v-for="activity in recentActivities" :key="activity.id"
+              class="flex items-center space-x-2 sm:space-x-4 py-3 sm:py-4 border-b border-black/15 hover:bg-gray-50 transition-colors duration-200">
+              <div
+                :class="`w-8 sm:w-10 h-8 sm:h-10 flex items-center justify-center rounded-lg ${activity.iconBg} flex-shrink-0`">
+                <i :class="`${activity.icon} text-sm sm:text-base ${activity.iconColor}`"></i>
               </div>
-              <div class="flex-1">
-                <p class="font-medium text-black">{{ activity.title }}</p>
-                <p class="text-sm text-gray-500">{{ activity.description }}</p>
+              <div class="flex-1 min-w-0">
+                <p class="font-medium text-black text-sm sm:text-sm truncate">{{ activity.title }}</p>
+                <p class="text-[10px] sm:text-sm text-gray-500 truncate">{{ activity.description }}</p>
               </div>
-              <div class="flex flex-col items-end space-y-2">
-                <span 
-                  :class="`px-3 py-1 rounded-full text-xs font-medium ${activity.statusColor}`"
-                >
+              <div class="flex flex-col items-end space-y-2 flex-shrink-0">
+                <span :class="`px-2 sm:px-3 py-1 rounded-full text-[10px] lg:text-sm font-medium ${activity.statusColor}`">
                   {{ activity.status }}
                 </span>
               </div>
@@ -76,27 +93,23 @@
       </div>
 
       <!-- Patients Waiting -->
-      <div class="bg-white rounded-xl border-2 border-[#CFCFCF]">
-        <div class="px-5 py-4 border-b border-gray-200">
-          <h3 class="text-xl font-semibold text-black flex items-center underline px-4 py-2 border-l-4 border-[#764BA2]">
+      <div class="bg-white rounded-xl border-2 border-[#CFCFCF] animate-on-load animate-fade-in-right delay-600">
+        <div class="px-4 sm:px-5 py-4 border-b border-gray-200">
+          <h3
+            class="text-lg sm:text-xl font-semibold text-black flex items-center underline px-2 sm:px-4 py-2 border-l-4 border-[#764BA2]">
             Patients en Attente
           </h3>
         </div>
-        <div class="p-4">
+        <div class="p-3 sm:p-4">
           <div class="space-y-2">
-            <div 
-              v-for="patient in waitingPatients" 
-              :key="patient.id"
-              class="flex items-center space-x-1 py-4 border-b border-black/15 hover:bg-gray-50 transition-colors duration-200"
-            >
-              <div class="flex-1">
-                <p class="font-medium text-black">{{ patient.name }}</p>
-                <p class="text-sm text-gray-500">{{ patient.description }}</p>
+            <div v-for="patient in waitingPatients" :key="patient.id"
+              class="flex items-center space-x-2 sm:space-x-4 py-3 sm:py-4 border-b border-black/15 hover:bg-gray-50 transition-colors duration-200">
+              <div class="flex-1 min-w-0">
+                <p class="font-medium text-black text-sm sm:text-base truncate">{{ patient.name }}</p>
+                <p class="text-[10px] sm:text-sm text-gray-500 truncate">{{ patient.description }}</p>
               </div>
-              <div class="flex flex-col items-end space-y-2">
-                <span 
-                  :class="`px-3 py-1 rounded-full text-xs font-medium ${patient.statusColor}`"
-                >
+              <div class="flex flex-col items-end space-y-2 flex-shrink-0">
+                <span :class="`px-2 sm:px-3 py-1 rounded-full text-[10px] lg:text-sm font-medium ${patient.statusColor}`">
                   {{ patient.status }}
                 </span>
               </div>
@@ -107,27 +120,26 @@
     </div>
 
     <!-- Alerts Section -->
-    <div class="bg-white rounded-xl border-2 border-[#CFCFCF] mb-10">
-      <div class="px-4 py-4 flex flex-row justify-between items-center">
-        <h3 class="text-xl underline px-2 font-semibold text-black flex items-center border-l-4 border-red-500">
+    <div
+      class="bg-white rounded-xl border-2 border-[#CFCFCF] mb-6 sm:mb-10 animate-on-load animate-fade-in-up delay-700">
+      <div class="px-3 sm:px-4 py-4 flex flex-row justify-between items-center">
+        <h3
+          class="text-lg sm:text-xl underline px-2 font-semibold text-black flex items-center border-l-4 border-red-500">
           Alertes
         </h3>
-        <button class="hover:text-medical-blue/80 text-sm font-medium">
+        <button class="hover:text-medical-blue/80 text-xs sm:text-sm font-medium">
           Voir tout
         </button>
       </div>
       <div class="p-3">
-        <div class="space-y-4">
-          <div 
-            v-for="alert in alerts" 
-            :key="alert.id"
-            :class="`border-l-4 p-4 rounded-lg ${alert.borderColor} ${alert.bgColor}`"
-          >
-            <div class="flex items-center space-x-3">
-              <i :class="`${alert.icon} text-3xl ${alert.iconColor} `"></i>
-              <div class="flex-1">
-                <h4 class="font-semibold text-gray-900">{{ alert.title }}</h4>
-                <p class="text-sm text-gray-600">{{ alert.description }}</p>
+        <div class="space-y-3 sm:space-y-4">
+          <div v-for="alert in alerts" :key="alert.id"
+            :class="`border-l-4 p-3 sm:p-4 rounded-lg ${alert.borderColor} ${alert.bgColor}`">
+            <div class="flex items-start space-x-2 sm:space-x-3">
+              <i :class="`${alert.icon} text-xl sm:text-2xl lg:text-3xl ${alert.iconColor} flex-shrink-0 mt-1`"></i>
+              <div class="flex-1 min-w-0">
+                <h4 class="font-semibold text-gray-900 text-[12px] lg:text-sm sm:text-base">{{ alert.title }}</h4>
+                <p class="text-[10px] lg:text-xs sm:text-sm text-gray-600">{{ alert.description }}</p>
               </div>
             </div>
           </div>
@@ -138,7 +150,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 
 const statsCards = ref([
   {
@@ -250,40 +262,35 @@ const waitingPatients = ref([
     name: 'DNA Webhosting',
     description: 'Consultation générale • 14:30',
     status: 'En attente',
-    statusColor: 'bg-yellow-200 text-[#FF6200]',
-    avatar: 'https://images.pexels.com/photos/5215024/pexels-photo-5215024.jpeg?auto=compress&cs=tinysrgb&w=64&h=64&fit=crop&crop=face'
+    statusColor: 'bg-yellow-200 text-[#FF6200]'
   },
   {
     id: 2,
     name: 'DNA Webhosting',
     description: 'Cardiologie • 15:00',
     status: 'Programmé',
-    statusColor: 'bg-blue-100 text-blue-800',
-    avatar: 'https://images.pexels.com/photos/5452201/pexels-photo-5452201.jpeg?auto=compress&cs=tinysrgb&w=64&h=64&fit=crop&crop=face'
+    statusColor: 'bg-blue-100 text-blue-800'
   },
   {
     id: 3,
     name: 'DNA Webhosting',
     description: 'Dermatologie • 15:30',
     status: 'Programmé',
-    statusColor: 'bg-blue-100 text-blue-800',
-    avatar: 'https://images.pexels.com/photos/5452293/pexels-photo-5452293.jpeg?auto=compress&cs=tinysrgb&w=64&h=64&fit=crop&crop=face'
+    statusColor: 'bg-blue-100 text-blue-800'
   },
   {
     id: 4,
     name: 'DNA Webhosting',
     description: 'Urgence • Immédiat',
     status: 'Urgent',
-    statusColor: 'bg-red-100 text-[#FF0000]',
-    avatar: 'https://images.pexels.com/photos/5452266/pexels-photo-5452266.jpeg?auto=compress&cs=tinysrgb&w=64&h=64&fit=crop&crop=face'
+    statusColor: 'bg-red-100 text-[#FF0000]'
   },
   {
     id: 5,
     name: 'DNA Webhosting',
     description: 'Urgence • Immédiat',
     status: 'Urgent',
-    statusColor: 'bg-red-100 text-[#FF0000]',
-    avatar: 'https://images.pexels.com/photos/5452288/pexels-photo-5452288.jpeg?auto=compress&cs=tinysrgb&w=64&h=64&fit=crop&crop=face'
+    statusColor: 'bg-red-100 text-[#FF0000]'
   }
 ])
 
@@ -334,6 +341,16 @@ const alerts = ref([
     borderColor: 'border-blue-500'
   }
 ])
+
+onMounted(() => {
+  // Déclencher les animations au chargement
+  setTimeout(() => {
+    const elements = document.querySelectorAll('.animate-on-load')
+    elements.forEach(el => {
+      el.classList.remove('animate-on-load')
+    })
+  }, 100)
+})
 </script>
 
 <style scoped>
@@ -348,5 +365,140 @@ const alerts = ref([
 .card-hover:hover {
   transform: translateY(-4px);
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Animations d'entrée */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes textGlow {
+
+  0%,
+  100% {
+    text-shadow: 0 0 5px rgba(0, 119, 255, 0.3);
+  }
+
+  50% {
+    text-shadow: 0 0 20px rgba(0, 119, 255, 0.6), 0 0 30px rgba(0, 119, 255, 0.4);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.animate-fade-in-left {
+  animation: fadeInLeft 0.6s ease-out forwards;
+}
+
+.animate-fade-in-right {
+  animation: fadeInRight 0.6s ease-out forwards;
+}
+
+.animate-pulse-slow {
+  animation: pulse 3s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.text-glow-animation {
+  animation: textGlow 2s ease-in-out infinite;
+}
+
+/* Délais d'animation */
+.delay-100 {
+  animation-delay: 0.1s;
+}
+
+.delay-200 {
+  animation-delay: 0.2s;
+}
+
+.delay-300 {
+  animation-delay: 0.3s;
+}
+
+.delay-400 {
+  animation-delay: 0.4s;
+}
+
+.delay-500 {
+  animation-delay: 0.5s;
+}
+
+.delay-600 {
+  animation-delay: 0.6s;
+}
+
+.delay-700 {
+  animation-delay: 0.7s;
+}
+
+.delay-800 {
+  animation-delay: 0.8s;
+}
+
+/* Styles initiaux pour les animations */
+.animate-on-load {
+  opacity: 0;
 }
 </style>
