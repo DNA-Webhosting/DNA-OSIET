@@ -13,9 +13,12 @@
         <!-- Main Menus Row -->
         <div class="flex flex-row">
           <div class="flex flex-row items-center justify-between space-x-4">
-            <transition-group name="menu-slide" tag="div" class="flex flex-row items-center space-x-4" appear>
+            <transition-group name="menu-slide" tag="div"
+              class="flex flex-row items-center lg:space-x-1 2xl:space-x-4 space-x-4" appear>
               <div v-for="(menu, index) in visibleMenus" :key="menu.id" class="relative flex-shrink-0"
-                @click="toggleSubmenu(menu.id)" :style="{ transitionDelay: `${index * 100}ms` }">
+                @click="toggleSubmenu(menu.id)" @mouseleave="closeSubmenu"
+                :style="{ transitionDelay: `${index * 100}ms` }">
+
                 <!-- Menu Item -->
                 <div
                   class="bg-white shadow-md border-r-2 cursor-pointer hover:shadow-xl transition-shadow duration-200 relative transform hover:scale-105"
@@ -43,7 +46,7 @@
                 <!-- Submenu -->
                 <transition name="submenu-slide">
                   <div v-if="activeSubmenu === menu.id"
-                    class="absolute bg-white shadow-xl border-r-2 border-blue-400 z-50 w-full">
+                    class="absolute bg-white shadow-xl border-r-2 border-blue-300 z-50 w-full">
                     <div class="p-0">
                       <transition-group name="submenu-item" tag="div">
                         <div v-for="(item, itemIndex) in menu.submenuItems" :key="itemIndex"
@@ -51,17 +54,12 @@
                           :style="{
                             transitionDelay: `${itemIndex * 50}ms`,
                             '--hover-color': menu.hoverColor
-                          }" :class="[
-                            'text-gray-700',
-                            item.active ? 'font-semibold' : '',
-                            'submenu-item'
-                          ]">
+                          }" :class="['text-gray-700', item.active ? 'font-semibold' : '', 'submenu-item']">
                           <i :class="item.icon" class="w-4 h-5 flex-shrink-0"></i>
                           <span class="text-sm font-medium">{{ item.label }}</span>
                           <i v-if="item.hasSubmenu"
                             class="fas fa-chevron-right ml-auto text-xs transform transition-transform duration-200 hover:translate-x-1"></i>
                         </div>
-
                       </transition-group>
                     </div>
                   </div>
@@ -89,7 +87,7 @@
       <!-- Drawer Mobile -->
       <transition name="submenu-slide">
         <div v-if="showMobileMenu" class="fixed top-4 left-0 h-full w-64 bg-white shadow-xl z-50 overflow-y-auto"
-          @mouseleave="showMobileMenu = false">
+          @mouseleave="showMobileMenu = false; closeSubmenu()">
 
           <!-- Header -->
           <div class="flex justify-between items-center p-3 border-b border-gray-200">
@@ -100,7 +98,9 @@
           </div>
 
           <!-- Tous les menus -->
-          <div v-for="menu in allMenus" :key="menu.id" class="border-b border-gray-100">
+          <div v-for="menu in allMenus" :key="menu.id" class="border-b border-gray-100" @mouseleave="closeSubmenu">
+
+            <!-- Menu principal -->
             <div class="flex items-center p-2 cursor-pointer hover:bg-gray-50" @click="toggleSubmenu(menu.id)">
               <!-- Icône -->
               <div class="w-8 h-8 flex items-center justify-center rounded-md text-white mr-2"
@@ -115,17 +115,21 @@
 
             <!-- Sous-menus -->
             <transition name="submenu-slide">
-              <div v-if="activeSubmenu === menu.id" class="ml-10">
+              <div v-if="activeSubmenu === menu.id" class="ml-10" @mouseleave="closeSubmenu">
+
                 <div v-for="(item, idx) in menu.submenuItems" :key="idx"
-                  class="flex items-center p-2 text-xs text-gray-600 hover:text-gray-900 cursor-pointer">
+                  class="flex items-center p-2 text-xs text-gray-600 hover:text-blue-600 cursor-pointer">
                   <i :class="item.icon" class="w-4 h-4 mr-2"></i>
                   {{ item.label }}
                 </div>
+
               </div>
             </transition>
           </div>
         </div>
       </transition>
+
+
 
       <!-- Bouton Suivant -->
       <button @click="nextMenu" :disabled="startIndex + maxVisibleMenus >= allMenus.length"
@@ -134,7 +138,7 @@
       </button>
     </div>
 
-    <!-- Expand/Collapse Arrow - Positioned absolutely at center -->
+    <!-- Expand/Collapse Arrow -->
     <transition name="expand-arrow" appear>
       <div v-if="hasHiddenMenus" class="absolute left-1/2 transform -translate-x-1/2 -mt-3" style="top: 100%;">
         <button @click="toggleExpandAll"
@@ -147,44 +151,60 @@
 
     <!-- Expanded Menus -->
     <transition name="expanded-menus">
-      <div v-if="showAllMenus && hiddenMenus.length > 0" class="mt-4 w-full">
-        <!-- XL: 5 colonnes, LG: 3 colonnes -->
-        <div class="grid gap-4 xl:grid-cols-5 lg:grid-cols-3">
-          <transition-group name="expanded-menu-slide" tag="div" class="contents" appear>
-            <div v-for="(menu, index) in hiddenMenus" :key="`expanded-${menu.id}`"
-              class="relative flex-shrink-0 cursor-pointer" @click="toggleSubmenu(menu.id)">
-              <!-- Menu Item -->
-              <div
-                class="bg-white shadow-md border-r-2 border-blue-300 hover:shadow-xl transition-shadow duration-200 transform hover:scale-105 p-3">
-                <div class="flex items-center">
-                  <!-- Icon -->
-                  <div
-                    class="w-12 h-10 rounded-lg flex items-center justify-center text-white text-xl mr-3 flex-shrink-0"
-                    :style="{ backgroundColor: menu.color }">
-                    <i :class="menu.icon" class="text-lg"></i>
-                  </div>
-                  <!-- Content -->
-                  <div class="flex-1 w-full items-center">
-                    <h3 class="text-[#1F2937] font-semibold text-md text-center truncate">
-                      {{ menu.title }}
-                    </h3>
-                    <p class="text-gray-500 text-xs text-center truncate">
-                      {{ menu.description }}
-                    </p>
-                  </div>
-                  <!-- Dropdown Arrow -->
-                  <i class="fas fa-chevron-down text-gray-400 ml-2 flex-shrink-0"
-                    :class="{ 'rotate-180': activeSubmenu === menu.id }"></i>
+      <div v-if="showAllMenus && hiddenMenus.length > 0" class="mt-4 w-full flex flex-wrap justify-center gap-4">
+        <transition-group name="expanded-menu-slide" tag="div" class="flex flex-wrap justify-center gap-4" appear>
+          <div v-for="(menu, index) in hiddenMenus" :key="`expanded-${menu.id}`"
+            class="relative flex-shrink-0 cursor-pointer mx-auto" @click="toggleSubmenu(menu.id)"
+            @mouseleave="closeSubmenu">
+
+            <!-- Menu Item -->
+            <div
+              class="bg-white shadow-md border-r-2 border-blue-300 hover:shadow-xl transition-shadow duration-200 transform hover:scale-105 p-3">
+              <div class="flex items-center justify-center">
+                <!-- Icon -->
+                <div class="w-12 h-10 rounded-lg flex items-center justify-center text-white text-xl mr-3 flex-shrink-0"
+                  :style="{ backgroundColor: menu.color }">
+                  <i :class="menu.icon" class="text-lg"></i>
                 </div>
+                <!-- Content -->
+                <div class="flex-1 items-center text-center">
+                  <h3 class="text-[#1F2937] font-semibold text-md truncate">{{ menu.title }}</h3>
+                  <p class="text-gray-500 text-xs truncate">{{ menu.description }}</p>
+                </div>
+                <!-- Dropdown Arrow -->
+                <i class="fas fa-chevron-down text-gray-400 ml-2 flex-shrink-0"
+                  :class="{ 'rotate-180': activeSubmenu === menu.id }"></i>
               </div>
             </div>
-          </transition-group>
-        </div>
+
+            <!-- Sous-menu -->
+            <transition name="submenu-slide">
+              <div v-if="activeSubmenu === menu.id"
+                class="absolute bg-white shadow-xl border-r-2 border-blue-400 z-50 w-full">
+                <div class="p-0">
+                  <transition-group name="submenu-item" tag="div">
+                    <div v-for="(item, itemIndex) in menu.submenuItems" :key="itemIndex"
+                      class="flex items-center p-3 cursor-pointer transition-all duration-200 border-b border-gray-100 last:border-b-0 transform hover:translate-x-1"
+                      :style="{
+                        transitionDelay: `${itemIndex * 50}ms`,
+                        '--hover-color': menu.hoverColor
+                      }" :class="['text-gray-700', item.active ? 'font-semibold' : '', 'submenu-item']">
+                      <i :class="item.icon" class="w-4 h-5 flex-shrink-0"></i>
+                      <span class="text-sm font-medium">{{ item.label }}</span>
+                      <i v-if="item.hasSubmenu"
+                        class="fas fa-chevron-right ml-auto text-xs transform transition-transform duration-200 hover:translate-x-1"></i>
+                    </div>
+                  </transition-group>
+                </div>
+              </div>
+            </transition>
+          </div>
+        </transition-group>
       </div>
     </transition>
   </div>
 
-  <!-- Backdrop to close submenu -->
+  <!-- Backdrop -->
   <transition name="backdrop">
     <div v-if="activeSubmenu" class="fixed" @click="closeSubmenu"></div>
   </transition>
@@ -337,12 +357,16 @@ const maxVisibleMenus = ref(5)
 // Fonction pour mettre à jour maxVisibleMenus selon écran
 const updateResponsive = () => {
   const width = window.innerWidth
-  if (width >= 1280) { // XL
-    maxVisibleMenus.value = 5
+  if (width >= 1536) { // 2XL
+    maxVisibleMenus.value = 4
+  } else if (width >= 1280) { // XL
+    maxVisibleMenus.value = 3
   } else if (width >= 1024) { // LG
     maxVisibleMenus.value = 3
-  } else {
+  } else if (width >= 768) { // MD
     maxVisibleMenus.value = 3
+  } else { // SM
+    maxVisibleMenus.value = 2
   }
 }
 

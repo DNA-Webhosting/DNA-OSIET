@@ -13,7 +13,7 @@
             Vue d'ensemble de votre système de gestion médical
           </p>
         </div>
-        <div class="absolute transform -translate-y-1/2 w-full h-full -mt-12 opacity-20">
+        <div class="absolute transform -translate-y-1/2 w-full h-full -mt-12 md:-mt-[35px] opacity-20">
           <img src="/images/fondbleu.jpg" alt="Fond médical" class="w-full h-full object-cover">
         </div>
       </div>
