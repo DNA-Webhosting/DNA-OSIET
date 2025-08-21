@@ -50,12 +50,12 @@
                     <div class="p-0">
                       <transition-group name="submenu-item" tag="div">
                         <div v-for="(item, itemIndex) in menu.submenuItems" :key="itemIndex"
-                          class="flex items-center p-3 cursor-pointer transition-all duration-200 border-b border-gray-100 last:border-b-0 transform hover:translate-x-1"
+                          class="flex items-center p-2 lg:gap-2 cursor-pointer transition-all duration-200 border-b border-gray-100 last:border-b-0 transform hover:translate-x-1"
                           :style="{
                             transitionDelay: `${itemIndex * 50}ms`,
                             '--hover-color': menu.hoverColor
                           }" :class="['text-gray-700', item.active ? 'font-semibold' : '', 'submenu-item']">
-                          <i :class="item.icon" class="w-4 h-5 flex-shrink-0"></i>
+                          <i :class="item.icon" class="w-4 h-4 flex-shrink-0"></i>
                           <span class="text-sm font-medium">{{ item.label }}</span>
                           <i v-if="item.hasSubmenu"
                             class="fas fa-chevron-right ml-auto text-xs transform transition-transform duration-200 hover:translate-x-1"></i>
@@ -118,8 +118,8 @@
               <div v-if="activeSubmenu === menu.id" class="ml-10" @mouseleave="closeSubmenu">
 
                 <div v-for="(item, idx) in menu.submenuItems" :key="idx"
-                  class="flex items-center p-2 text-xs text-gray-600 hover:text-blue-600 cursor-pointer">
-                  <i :class="item.icon" class="w-4 h-4 mr-2"></i>
+                  class="flex items-center p-2 gap-2 text-xs text-gray-600 hover:text-blue-600 cursor-pointer">
+                  <i :class="item.icon" class="w-4"></i>
                   {{ item.label }}
                 </div>
 
