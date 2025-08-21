@@ -3,7 +3,8 @@ import AppLayout from '@/layouts/AppLayout.vue';
 import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/vue3';
 // import PlaceholderPattern from '../components/PlaceholderPattern.vue';
-import ListedesSociété from '../components/ListedesSociété.vue';
+// import ListedesSociété from '../components/ListedesSociété.vue';
+import SuiviCotisation from '../components/SuiviCotisation.vue';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
@@ -22,7 +23,8 @@ const breadcrumbs: BreadcrumbItem[] = [
             </div>
             <div class="">
                 <!-- <PlaceholderPattern /> -->
-                <ListedesSociété />
+                <!-- <ListedesSociété /> -->
+                 <SuiviCotisation />
             </div>
         </div>
     </AppLayout>
