@@ -40,15 +40,21 @@
               </template>
               <template v-else-if="column.key === 'actions'">
                 <a-dropdown
-                  trigger="click"
+                  trigger="manual"
                   :visible="dropdownVisibleMap[record.id]"
-                  @visibleChange="(visible) => dropdownVisibleMap[record.id] = visible"
                 >
-                  <a-button type="text">
+                  <a-button
+                    type="text"
+                    @click="dropdownVisibleMap[record.id] = !dropdownVisibleMap[record.id]"
+                  >
                     <EllipsisOutlined style="color: black; font-size: 20px;" />
                   </a-button>
+
                   <template #overlay>
-                    <a-menu @mouseleave="dropdownVisibleMap[record.id] = false">
+                    <a-menu
+                      @mouseenter="isHovering[record.id] = true"
+                      @mouseleave="isHovering[record.id] = false; dropdownVisibleMap[record.id] = false"
+                    >
                       <a-menu-item v-for="(action, i) in actions" :key="i" @click="action.handler(record)">
                         <component :is="action.icon" class="w-4 h-4 mr-2 text-black" />
                         {{ action.label }}
@@ -95,14 +101,21 @@
                 <!-- Actions Ellipsis -->
                 <div class="flex items-center justify-center lg:justify-end pt-2 border-t border-gray-100 relative">
                   <a-dropdown
+                    trigger="manual"
                     :visible="dropdownVisibleMap[item.id]"
-                    @visibleChange="(visible) => dropdownVisibleMap[item.id] = visible"
                   >
-                    <a-button type="text">
+                    <a-button
+                      type="text"
+                      @click="dropdownVisibleMap[item.id] = !dropdownVisibleMap[item.id]"
+                    >
                       <EllipsisOutlined style="color: black; font-size: 20px;" />
                     </a-button>
+
                     <template #overlay>
-                      <a-menu @mouseleave="dropdownVisibleMap[item.id] = false">
+                      <a-menu
+                        @mouseenter="isHovering[item.id] = true"
+                        @mouseleave="isHovering[item.id] = false; dropdownVisibleMap[item.id] = false"
+                      >
                         <a-menu-item v-for="(action, i) in actions" :key="i" @click="action.handler(item)">
                           <component :is="action.icon" class="w-4 h-4 mr-2 text-black" />
                           {{ action.label }}
@@ -188,7 +201,7 @@ import { EllipsisOutlined } from '@ant-design/icons-vue';
 import type { FormInstance } from "ant-design-vue";
 
 interface TableItem {
-  id: number; // identifiant unique
+  id: number;
   nom: string;
   secteur: string;
   employes: string | number;
@@ -213,8 +226,9 @@ const showModal = ref(false);
 const newSociete = ref<TableItem>({ id: 0, nom: "", secteur: "", employes: 0, statut: "Actif", cotisation: "" });
 const formRef = ref<FormInstance | null>(null);
 
-// Chaque dropdown a sa propre visibilité par ID
+// Dropdowns visibility
 const dropdownVisibleMap = reactive<Record<number, boolean>>({});
+const isHovering = reactive<Record<number, boolean>>({});
 
 const filters = ref<Filter[]>([
   { label: "Toutes", value: "all" },
@@ -222,7 +236,7 @@ const filters = ref<Filter[]>([
   { label: "En retard", value: "late" }
 ]);
 
-let nextId = 1; // compteur pour ID unique
+let nextId = 1;
 
 const tableData = ref<TableItem[]>([
   { id: nextId++, nom: "DNA WEBHOSTING 1", secteur: "Développement App", employes: 17, statut: "Actif", cotisation: "01/01/2025" },
@@ -267,12 +281,9 @@ function handleAddSociete() {
     tableData.value.push({ ...newSociete.value, id: nextId++ });
     showModal.value = false;
     newSociete.value = { id: 0, nom: "", secteur: "", employes: 0, statut: "Actif", cotisation: "" };
-  }).catch(() => {
-    // Validation échouée
-  });
+  }).catch(() => {});
 }
 </script>
-
 
 <style scoped>
 .animate-fade-in-down {
@@ -288,35 +299,17 @@ function handleAddSociete() {
 }
 
 @keyframes fadeInDown {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateX(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
 }
 </style>
