@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-white px-2 lg:px-6 py-4 relative w-full">
+  <div class="bg-white px-2 lg:px-6 py-4 relative w-full">
     <!-- Navigation Container -->
     <div class="flex items-center justify-between">
       <!-- Bouton Précédent -->
@@ -54,13 +54,13 @@
                           :style="{
                             transitionDelay: `${itemIndex * 50}ms`,
                             '--hover-color': menu.hoverColor
-                            
+
                           }" :class="['text-gray-700', item.active ? 'font-semibold' : '', 'submenu-item']"
-                           @click="item.action" >
-                            <i :class="item.icon" class="w-4 h-4 flex-shrink-0"></i>
-                            <span class="text-sm font-medium">{{ item.label }}</span>
-                            <i v-if="item.hasSubmenu"
-                              class="fas fa-chevron-right ml-auto text-xs transform transition-transform duration-200 hover:translate-x-1"></i>
+                          @click="item.action">
+                          <i :class="item.icon" class="w-4 h-4 flex-shrink-0"></i>
+                          <span class="text-sm font-medium">{{ item.label }}</span>
+                          <i v-if="item.hasSubmenu"
+                            class="fas fa-chevron-right ml-auto text-xs transform transition-transform duration-200 hover:translate-x-1"></i>
                         </div>
                       </transition-group>
                     </div>
@@ -238,6 +238,11 @@ const listeSociete = () => {
   router.get(route("societe.index"));
 }
 
+const suiviCotisation = () => {
+  router.get(route("societe.suivi"));
+}
+
+
 // === Données des menus ===
 const allMenus: MenuItem[] = [
   {
@@ -248,11 +253,11 @@ const allMenus: MenuItem[] = [
     icon: 'fas fa-building',
     hoverColor: '#10B981',
     submenuItems: [
-      { label: 'Liste des Sociétés', icon: 'fas fa-list', action : listeSociete },
-      { label: 'Suivi Cotisations', icon: 'fas fa-money-bill-wave',action:'' },
-      { label: 'Historique', icon: 'fas fa-history',action:'' },
-      { label: 'Paiements', icon: 'fas fa-credit-card',action:'' },
-      { label: 'Alertes', icon: 'fas fa-exclamation-triangle', hasSubmenu: true,action:'' }
+      { label: 'Liste des Sociétés', icon: 'fas fa-list', action: listeSociete },
+      { label: 'Suivi Cotisations', icon: 'fas fa-money-bill-wave', action: suiviCotisation },
+      { label: 'Historique', icon: 'fas fa-history', action: '' },
+      { label: 'Paiements', icon: 'fas fa-credit-card', action: '' },
+      { label: 'Alertes', icon: 'fas fa-exclamation-triangle', hasSubmenu: true, action: '' }
     ]
   },
   {

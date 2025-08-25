@@ -19,7 +19,8 @@ Route::get('dashboard', function () {
 
 
 
-Route::resource("societe",SocieteController::class);
+Route::get('/societes', [SocieteController::class, 'index'])->name('societe.index');
+Route::get('/societes/suivi', [SocieteController::class, 'suivi'])->name('societe.suivi');
 
 
 
