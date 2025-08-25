@@ -8,7 +8,7 @@
         <img src="/images/MEDIALOG.png" alt="Logo"
           class="w-full max-w-32 transition-transform duration-300 hover:scale-105">
       </div>
-      <div class="border-l-2 border-[#6B7280] px-2 lg:px-5">
+      <div class="border-l-2 border-[#6B7280] px-2 lg:px-5" @click="dashboard">
         <i
           class="fa-solid fa-house text-white text-center text-xs lg:text-xl bg-green-600 p-2 rounded-full transition-all duration-300 hover:bg-green-700 hover:scale-110"></i>
       </div>
@@ -168,11 +168,13 @@
       </div>
     </div>
   </Transition>
+
 </template>
 
 <script setup lang="ts">
 import { ref, nextTick } from 'vue'
 import { onClickOutside } from '@vueuse/core' // plus pro et dynamique
+import { router } from "@inertiajs/vue3"
 
 const isProfileMenuOpen = ref(false)
 const isMobileSearchOpen = ref(false)
@@ -190,6 +192,10 @@ const closeMobileSearch = () => setTimeout(() => isMobileSearchOpen.value = fals
 
 // Fermer automatiquement le menu si clic dehors
 onClickOutside(profileMenuRef, () => closeProfileMenu())
+
+const dashboard = () => {
+  router.get(route("dashboard"));
+}
 </script>
 
 <style scoped>
