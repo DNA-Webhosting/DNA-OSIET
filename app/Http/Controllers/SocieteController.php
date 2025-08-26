@@ -13,7 +13,7 @@ class SocieteController extends Controller
      */
     public function index()
     {
-        return Inertia::render("Societe/ListedesSociété");
+        return Inertia::render("Societe/Index");
     }
 
     /**
