@@ -13,13 +13,29 @@ class SocieteController extends Controller
      */
      public function index()
     {
-        return Inertia::render("Societe/ListedesSociété");
+        return Inertia::render("Societe/Index");
     }
 
     public function suivi()
     {
         return Inertia::render("Societe/SuiviCotisation");
     }
+
+    public function histori()
+    {
+        return Inertia::render("Societe/Historique");
+    }
+
+    public function Paiement()
+    {
+        return Inertia::render("Societe/Paiements");
+    }
+
+     public function alt()
+    {
+        return Inertia::render("Societe/alt");
+    }
+
 
     /**
      * Show the form for creating a new resource.

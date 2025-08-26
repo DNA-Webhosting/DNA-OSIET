@@ -21,6 +21,9 @@ Route::get('dashboard', function () {
 
 Route::get('/societes', [SocieteController::class, 'index'])->name('societe.index');
 Route::get('/societes/suivi', [SocieteController::class, 'suivi'])->name('societe.suivi');
+Route::get('/societes/histori', [SocieteController::class, 'histori'])->name('societe.histori');
+Route::get('/societes/Paiement', [SocieteController::class, 'Paiement'])->name('societe.Paiement');
+Route::get('/societes/alt', [SocieteController::class, 'alt'])->name('societe.alt');
 
 
 

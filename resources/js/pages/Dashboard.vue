@@ -6,6 +6,8 @@ import { ref } from 'vue';
 import PlaceholderPattern from '@/components/PlaceholderPattern.vue';
 import ListedesSociété from '@/pages/Societe/ListedesSociété.vue';
 import SuiviCotisation from '@/pages/Societe/SuiviCotisation.vue';
+import Historique from '@/pages/Societe/Historique.vue';
+import Alertes from '@/pages/Societe/Alertes.vue';
 
 const breadcrumbs: BreadcrumbItem[] = [
   {
@@ -32,6 +34,8 @@ const value1 = ref('');
         <PlaceholderPattern />
         <!-- <ListedesSociété /> -->
         <!-- <SuiviCotisation /> -->
+        <!-- <Historique/> -->
+        <!-- <Alertes/> -->
       </div>
     </div>
   </AppLayout>

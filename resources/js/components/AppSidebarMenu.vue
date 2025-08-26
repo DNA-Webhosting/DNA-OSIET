@@ -242,6 +242,19 @@ const suiviCotisation = () => {
   router.get(route("societe.suivi"));
 }
 
+const historique = () => {
+  router.get(route("societe.histori"));
+}
+
+const Paiement = () => {
+  router.get(route("societe.Paiement"));
+}
+
+const alt = () => {
+  router.get(route("societe.alt"));
+}
+
+
 
 // === Données des menus ===
 const allMenus: MenuItem[] = [
@@ -255,9 +268,9 @@ const allMenus: MenuItem[] = [
     submenuItems: [
       { label: 'Liste des Sociétés', icon: 'fas fa-list', action: listeSociete },
       { label: 'Suivi Cotisations', icon: 'fas fa-money-bill-wave', action: suiviCotisation },
-      { label: 'Historique', icon: 'fas fa-history', action: '' },
-      { label: 'Paiements', icon: 'fas fa-credit-card', action: '' },
-      { label: 'Alertes', icon: 'fas fa-exclamation-triangle', hasSubmenu: true, action: '' }
+      { label: 'Historique', icon: 'fas fa-history', action: historique },
+      { label: 'Paiements', icon: 'fas fa-credit-card', action: Paiement },
+      { label: 'Alertes', icon: 'fas fa-exclamation-triangle', action: alt },
     ]
   },
   {

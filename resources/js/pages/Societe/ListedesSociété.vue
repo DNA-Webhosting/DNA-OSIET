@@ -22,12 +22,8 @@
             </div>
 
             <!-- Search + Bouton -->
-            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-4">
-              <a-input-search v-model:value="search" placeholder="Search" class="w-full sm:w-64" allow-clear />
-              <a-button type="primary" class="bg-green-700 hover:bg-blue-600 text-white" @click="showModal = true">
-                + Nouvelle Société
-              </a-button>
-            </div>
+            <Bouton @click="showModal = true" label="Nouveau societe" icon="plus" />
+            <Bouton class="!bg-red-500" @click="showModal = true" label="Modifier" icon="edit" />
           </div>
         </a-card>
 
@@ -199,6 +195,7 @@ import AppSidebarLayout from "@/layouts/app/AppSidebarLayout.vue";
 import { ref, computed, h, reactive } from "vue";
 import { EllipsisOutlined } from '@ant-design/icons-vue';
 import type { FormInstance } from "ant-design-vue";
+import Bouton from "@/components/utils/Bouton.vue";
 
 interface TableItem {
   id: number;
