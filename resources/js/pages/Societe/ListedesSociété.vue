@@ -5,25 +5,28 @@
 
         <!-- Header -->
         <a-card bordered :body-style="{ padding: '0' }" class="animate-fade-in-down">
-          <div class="flex flex-col md:flex-row lg:flex-row md:justify-between lg:justify-between gap-3 sm:gap-4 p-3 sm:p-4">
+          <div
+            class="flex flex-col md:flex-row lg:flex-row md:justify-between lg:justify-between gap-3 sm:gap-4 p-3 sm:p-4">
 
             <!-- Filtres -->
-            <div class="flex flex-wrap md:flex-row md:w-full md:max-w-[330px] items-center justify-between lg:justify-between md:gap-1.5">
+            <div
+              class="flex flex-wrap md:flex-row md:w-full md:max-w-[330px] items-center justify-between lg:justify-between md:gap-1.5">
               <a-button type="default" icon>
                 Filter
               </a-button>
 
               <a-button v-for="(filter, i) in filters" :key="i"
-                :type="activeFilter === filter.value ? 'primary' : 'default'"
-                @click="activeFilter = filter.value"
+                :type="activeFilter === filter.value ? 'primary' : 'default'" @click="activeFilter = filter.value"
                 class="px-2.5 py-1.5 sm:px-3 lg:text-[14px] sm:py-2 text-xs sm:text-sm font-medium rounded-md">
                 {{ filter.label }}
               </a-button>
             </div>
 
             <!-- Search + Bouton -->
-            <Bouton @click="showModal = true" label="Nouveau societe" icon="plus" />
-            <Bouton class="!bg-red-500" @click="showModal = true" label="Modifier" icon="edit" />
+            <div class="flex flex-row gap-2">
+              <a-input-search @search="showModal" placeholder="Rechercher..." />
+              <Bouton @click="openForm" label="Nouveau societe" icon="plus" />
+            </div>
           </div>
         </a-card>
 
@@ -35,22 +38,14 @@
                 <a-tag :color="getStatusColor(record.statut)">{{ record.statut }}</a-tag>
               </template>
               <template v-else-if="column.key === 'actions'">
-                <a-dropdown
-                  trigger="manual"
-                  :visible="dropdownVisibleMap[record.id]"
-                >
-                  <a-button
-                    type="text"
-                    @click="dropdownVisibleMap[record.id] = !dropdownVisibleMap[record.id]"
-                  >
+                <a-dropdown trigger="manual" :visible="dropdownVisibleMap[record.id]">
+                  <a-button type="text" @click="dropdownVisibleMap[record.id] = !dropdownVisibleMap[record.id]">
                     <EllipsisOutlined style="color: black; font-size: 20px;" />
                   </a-button>
 
                   <template #overlay>
-                    <a-menu
-                      @mouseenter="isHovering[record.id] = true"
-                      @mouseleave="isHovering[record.id] = false; dropdownVisibleMap[record.id] = false"
-                    >
+                    <a-menu @mouseenter="isHovering[record.id] = true"
+                      @mouseleave="isHovering[record.id] = false; dropdownVisibleMap[record.id] = false">
                       <a-menu-item v-for="(action, i) in actions" :key="i" @click="action.handler(record)">
                         <component :is="action.icon" class="w-4 h-4 mr-2 text-black" />
                         {{ action.label }}
@@ -96,22 +91,14 @@
 
                 <!-- Actions Ellipsis -->
                 <div class="flex items-center justify-center lg:justify-end pt-2 border-t border-gray-100 relative">
-                  <a-dropdown
-                    trigger="manual"
-                    :visible="dropdownVisibleMap[item.id]"
-                  >
-                    <a-button
-                      type="text"
-                      @click="dropdownVisibleMap[item.id] = !dropdownVisibleMap[item.id]"
-                    >
+                  <a-dropdown trigger="manual" :visible="dropdownVisibleMap[item.id]">
+                    <a-button type="text" @click="dropdownVisibleMap[item.id] = !dropdownVisibleMap[item.id]">
                       <EllipsisOutlined style="color: black; font-size: 20px;" />
                     </a-button>
 
                     <template #overlay>
-                      <a-menu
-                        @mouseenter="isHovering[item.id] = true"
-                        @mouseleave="isHovering[item.id] = false; dropdownVisibleMap[item.id] = false"
-                      >
+                      <a-menu @mouseenter="isHovering[item.id] = true"
+                        @mouseleave="isHovering[item.id] = false; dropdownVisibleMap[item.id] = false">
                         <a-menu-item v-for="(action, i) in actions" :key="i" @click="action.handler(item)">
                           <component :is="action.icon" class="w-4 h-4 mr-2 text-black" />
                           {{ action.label }}
@@ -127,66 +114,8 @@
       </div>
     </div>
 
-    <!-- Modal Nouvelle Société -->
-    <a-modal
-      v-model:open="showModal"
-      ok-text="Ajouter"
-      cancel-text="Annuler"
-      @ok="handleAddSociete"
-      :closable="false"
-      class="rounded-xl"
-    >
-      <template #title>
-        <div class="w-full text-center text-gray-600 py-2 rounded-lg font-bold text-lg">
-          Nouvelle Société
-        </div>
-      </template>
+    <FormSociete ref="formSociete" />
 
-      <a-form
-        layout="vertical"
-        class="space-y-4"
-        ref="formRef"
-      >
-        <a-form-item
-          label="Nom de la Société"
-          :rules="[{ required: true, message: 'Veuillez entrer le nom de la société' }]"
-        >
-          <a-input v-model:value="newSociete.nom" placeholder="Entrez le nom" />
-        </a-form-item>
-
-        <a-form-item
-          label="Secteur d'Activité"
-          :rules="[{ required: true, message: 'Veuillez entrer le secteur d\'activité' }]"
-        >
-          <a-input v-model:value="newSociete.secteur" placeholder="Secteur" />
-        </a-form-item>
-
-        <a-form-item
-          label="Nombre d'Employés"
-          :rules="[{ required: true, message: 'Veuillez entrer le nombre d\'employés' }]"
-        >
-          <a-input-number v-model:value="newSociete.employes" class="w-full" />
-        </a-form-item>
-
-        <a-form-item
-          label="Statut"
-          :rules="[{ required: true, message: 'Veuillez choisir un statut' }]"
-        >
-          <a-select v-model:value="newSociete.statut" placeholder="Choisir un statut">
-            <a-select-option value="Actif">Actif</a-select-option>
-            <a-select-option value="En retard">En retard</a-select-option>
-            <a-select-option value="Archive">Archive</a-select-option>
-          </a-select>
-        </a-form-item>
-
-        <a-form-item
-          label="Dernière Cotisation"
-          :rules="[{ required: true, message: 'Veuillez sélectionner la date de cotisation' }]"
-        >
-          <a-date-picker v-model:value="newSociete.cotisation" class="w-full" format="DD/MM/YYYY" />
-        </a-form-item>
-      </a-form>
-    </a-modal>
   </AppSidebarLayout>
 </template>
 
@@ -278,8 +207,19 @@ function handleAddSociete() {
     tableData.value.push({ ...newSociete.value, id: nextId++ });
     showModal.value = false;
     newSociete.value = { id: 0, nom: "", secteur: "", employes: 0, statut: "Actif", cotisation: "" };
-  }).catch(() => {});
+  }).catch(() => { });
 }
+
+
+import FormSociete from './FormSociete.vue'
+
+const formSociete = ref(false)
+
+function openForm() {
+  formSociete.value.visible = true
+}
+
+
 </script>
 
 <style scoped>
@@ -296,17 +236,38 @@ function handleAddSociete() {
 }
 
 @keyframes fadeInDown {
-  from { opacity: 0; transform: translateY(-20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes slideIn {
-  from { opacity: 0; transform: translateX(-20px); }
-  to { opacity: 1; transform: translateX(0); }
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 </style>

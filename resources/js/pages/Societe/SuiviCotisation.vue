@@ -5,17 +5,14 @@
         <!-- Header -->
         <div
           class="lg:flex lg:items-center lg:justify-between md:flex items-center space-y-4 md:space-y-0 md:items-center justify-between p-2">
-          <h1 class="text-lg lg:text-left md:text-left text-center font-semibold text-gray-800 w-full lg:max-w-xl">
-            Tableau de suivi des cotisations
+          <h1 class="text-lg lg:text-left md:text-left text-center lg:text-xl font-bold text-gray-600 w-full lg:max-w-xl">
+            Suivi des cotisations
           </h1>
 
           <div
             class="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 sm:w-auto w-full">
-            <a-input-search v-model:value="search" placeholder="Rechercher un nom..."
-              class="w-full" allow-clear />
-            <a-button type="primary" @click="showModal = true" class="w-xs md:w-[100px] lg:w-[125px]">
-              + Ajouter
-            </a-button>
+            <a-input-search @search="showModal" placeholder="Rechercher..." />
+            <Bouton @click="openForm" label="Ajouter" icon="plus" />
           </div>
         </div>
 
@@ -129,7 +126,7 @@
       </a-card>
 
       <!-- Modal Nouvelle Société -->
-      <a-modal v-model:open="showModal" :footer="null" centered width="700px" wrap-class-name="custom-ant-modal"
+      <!-- <a-modal v-model:open="showModal" :footer="null" centered width="700px" wrap-class-name="custom-ant-modal"
         :closable="false">
         <template #title>
           <div class="text-lg md:text-xl w-full rounded-t-2xl text-gray-800 text-center font-semibold">
@@ -184,7 +181,8 @@
             </a-button>
           </div>
         </a-form>
-      </a-modal>
+      </a-modal> -->
+<FormSuivi ref="formSuivi" />   
     </div>
   </AppSidebarLayout>
 </template>
@@ -194,9 +192,20 @@
 import AppSidebarLayout from "@/layouts/app/AppSidebarLayout.vue";
 import { ref, computed, watch } from "vue";
 import { EllipsisOutlined } from "@ant-design/icons-vue";
+import Bouton from "@/components/utils/Bouton.vue";
+import Search from "@/components/utils/Search.vue";
+import FormSuivi from './FormSuivi.vue';
+
+const formSuivi = ref(false)
+
+function openForm() {
+  formSuivi.value.visible = true
+}
+
 
 const search = ref("");
 const showModal = ref(false);
+
 
 const cotisations = ref([
   { nom: "DNA Webhosting", mois: "Janvier 2025", attendu: 20000, paye: 20000, date: "05/01/2025", solde: 0, observation: "OK" },

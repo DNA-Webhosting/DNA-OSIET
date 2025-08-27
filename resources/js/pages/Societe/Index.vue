@@ -19,7 +19,7 @@ import FormSociete from './FormSociete.vue'
 const formSociete = ref(false)
 
 function openForm() {
-  formSociete.value.add = true
+  formSociete.value.visible = true
 }
 //  "typescript": "^5.2.2",
 

@@ -1,16 +1,17 @@
 <template>
   <a-modal
-    :open="visible"
+    :open="localVisible"
     :title="title"
     @ok="handleOk"
-    @close="handleCancel"
+    @cancel="handleCancel"
+    :closable="true"
   >
     <slot></slot>
   </a-modal>
 </template>
 
 <script setup>
-import { defineProps, defineEmits } from 'vue'
+import { defineProps, defineEmits, ref, watch } from 'vue'
 
 const props = defineProps({
   visible: Boolean,
@@ -19,13 +20,23 @@ const props = defineProps({
 
 const emit = defineEmits(['update:visible', 'ok', 'cancel'])
 
+// état local pour gérer la visibilité
+const localVisible = ref(props.visible)
+
+// synchroniser avec la prop si elle change depuis l'extérieur
+watch(() => props.visible, (val) => {
+  localVisible.value = val
+})
+
 function handleOk() {
   emit('ok')
-  emit('update:visible', false) // fermer le modal
+  localVisible.value = false
+  emit('update:visible', false)
 }
 
 function handleCancel() {
-  emit('cancel')
-  emit('update:visible', false) // fermer le modal
+  emit('cancel') // tu peux garder ou supprimer cet emit si tu veux
+  localVisible.value = false
+  emit('update:visible', false)
 }
 </script>
