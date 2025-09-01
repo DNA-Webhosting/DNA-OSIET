@@ -1,12 +1,7 @@
 <template>
     <AppSidebarLayout>
         <div class="p-4">
-            <div class="bg-white space-y-4 rounded-lg">
-                <div class="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 sm:w-auto w-full">
-                    <Search placeholder="Rechercher ..." />
-                    <Bouton @click="openForm" label="Ajouter" icon="plus" />
-                </div>
-            
+            <div class="bg-white space-y-4 rounded-lg">                                                   
                 <DataTable
                     :columns="columns"
                     :data="data"
@@ -31,10 +26,7 @@ import { router } from "@inertiajs/vue3"
 import AppSidebarLayout from "@/layouts/app/AppSidebarLayout.vue";
 import Tableau from "@/components/utils/Tableau.vue";
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons-vue';
-import Bouton from "@/components/utils/Bouton.vue";
-import Search from "@/components/utils/Search.vue";
 import DataTable from "@/components/utils/DataTable.vue";
-
 
 const columns = [
     { title: 'Date / Heure', dataIndex: 'date', key: 'date' },
