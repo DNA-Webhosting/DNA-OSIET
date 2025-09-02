@@ -1,6 +1,6 @@
 <template>
   <FormModal
-     :open="visible" title="Nouvelle une société" @ok="submitForm" cancelText="Fermer" okText="ENREGISTRER" @cancel="visible = false"
+     :open="visible" title="Nouvelle société" @ok="submitForm" cancelText="Fermer" okText="ENREGISTRER" @cancel="visible = false"
   >
     <a-form
         layout="vertical"

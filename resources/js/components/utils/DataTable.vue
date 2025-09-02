@@ -42,8 +42,7 @@
             <div class="ml-auto flex items-center">
               <template v-if="btn_action">
                 <a-dropdown placement="bottomRight" :trigger="['click']">
-                  <a-button type="text"
-                    class="hover:!bg-transparent hover:!text-gray-700 hover:shadow-none !text-lg">
+                  <a-button type="text" class="hover:!bg-transparent hover:!text-gray-700 hover:shadow-none !text-lg">
                     <font-awesome-icon icon="fa-solid fa-ellipsis" class="text-gray-700" />
                   </a-button>
                   <template #overlay>
@@ -153,8 +152,7 @@
             <template v-else-if="column.key === 'action'">
               <div class="flex justify-center items-center">
                 <a-dropdown placement="bottomRight" :trigger="['click']" v-if="btn_action">
-                  <a-button type="text"
-                    class="hover:!bg-transparent hover:!text-gray-700 hover:shadow-none !text-lg">
+                  <a-button type="text" class="hover:!bg-transparent hover:!text-gray-700 hover:shadow-none !text-lg">
                     <font-awesome-icon icon="fa-solid fa-ellipsis" class="text-gray-700" />
                   </a-button>
                   <template #overlay>
@@ -203,6 +201,7 @@
         </a-table>
       </div>
     </div>
+    <FormSuivi ref="formSuivi" />
   </div>
 </template>
 
@@ -211,11 +210,15 @@ import { ref, computed, onMounted } from 'vue';
 import { router, usePage } from '@inertiajs/vue3';
 import Bouton from "@/components/utils/Bouton.vue";
 import FilterButtons from "./FilterButtons.vue";
+import FormSuivi from "../../pages/societe/FormSuivi.vue";
 
-const formSociete = ref({ visible: false })
+
+const formSuivi = ref(false)
+
 function openForm() {
-  formSociete.value.visible = true
+  formSuivi.value.visible = true
 }
+
 
 const props = defineProps({
   data: { type: Object, required: true },

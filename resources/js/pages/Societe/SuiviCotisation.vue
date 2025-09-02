@@ -5,12 +5,12 @@
         <!-- Header -->
         <div
           class="lg:flex lg:items-center lg:justify-between md:flex items-center space-y-4 md:space-y-0 md:items-center justify-between p-2">
-          <h1 class="text-lg lg:text-left md:text-left text-center lg:text-xl font-bold text-gray-600 w-full lg:max-w-xl">
+          <h1
+            class="text-lg lg:text-left md:text-left text-center lg:text-xl font-bold text-gray-600 w-full lg:max-w-xl">
             Suivi des cotisations
           </h1>
 
-          <div
-            class="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 sm:w-auto w-full">
+          <div class="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 sm:w-auto w-full">
             <a-input-search @search="showModal" placeholder="Rechercher..." />
             <Bouton @click="openForm" label="Ajouter" icon="plus" />
           </div>
@@ -125,64 +125,7 @@
         </div>
       </a-card>
 
-      <!-- Modal Nouvelle Société -->
-      <!-- <a-modal v-model:open="showModal" :footer="null" centered width="700px" wrap-class-name="custom-ant-modal"
-        :closable="false">
-        <template #title>
-          <div class="text-lg md:text-xl w-full rounded-t-2xl text-gray-800 text-center font-semibold">
-            Nouvelle Cotisation
-          </div>
-        </template>
-
-        <a-form layout="vertical" class="grid grid-cols-1 md:grid-cols-2" ref="formRef" :model="newSociete"
-          @finish="handleAddSociete">
-          <a-form-item label="Nom & Prénom" name="nom" :rules="[{ required: true, message: 'Veuillez entrer le nom' }]"
-            class="md:col-span-2">
-            <a-input v-model:value="newSociete.nom" placeholder="Entrez le nom" class="w-full" />
-          </a-form-item>
-
-          <a-form-item label="Mois" name="mois" :rules="[{ required: true, message: 'Veuillez entrer le mois' }]"
-            class="md:col-span-2">
-            <a-input v-model:value="newSociete.secteur" placeholder="Entrez le mois" class="w-full" />
-          </a-form-item>
-
-          <a-form-item label="Montant attendu" name="attendu"
-            :rules="[{ required: true, message: 'Veuillez entrer le montant attendu' }]">
-            <a-input-number v-model:value="newSociete.employes" class="w-full" />
-          </a-form-item>
-
-          <a-form-item label="Montant payé" name="paye"
-            :rules="[{ required: true, message: 'Veuillez entrer le montant payé' }]">
-            <a-input-number v-model:value="newSociete.statut" class="w-full" />
-          </a-form-item>
-
-          <a-form-item label="Date paiement" name="date"
-            :rules="[{ required: true, message: 'Veuillez sélectionner la date de paiement' }]" class="md:col-span-2">
-            <a-date-picker v-model:value="newSociete.cotisation" class="w-full" format="DD/MM/YYYY" />
-          </a-form-item>
-
-          <a-form-item label="Solde" name="solde" :rules="[{ required: true, message: 'Veuillez entrer le solde' }]">
-            <a-input-number v-model:value="newSociete.solde" class="w-full" />
-          </a-form-item>
-
-          <a-form-item label="Observation" name="observation"
-            :rules="[{ required: true, message: 'Veuillez entrer l\'observation' }]">
-            <a-select v-model:value="newSociete.observation" placeholder="Choisir une observation" class="w-full">
-              <a-select-option value="OK">OK</a-select-option>
-              <a-select-option value="Partiel">Partiel</a-select-option>
-              <a-select-option value="Impayé">Impayé</a-select-option>
-            </a-select>
-          </a-form-item>
-
-          <div class="md:col-span-2 flex justify-end gap-3 pt-4">
-            <a-button @click="showModal = false">Annuler</a-button>
-            <a-button type="primary" html-type="submit">
-              Ajouter
-            </a-button>
-          </div>
-        </a-form>
-      </a-modal> -->
-<FormSuivi ref="formSuivi" />   
+      <FormSuivi ref="formSuivi" />
     </div>
   </AppSidebarLayout>
 </template>

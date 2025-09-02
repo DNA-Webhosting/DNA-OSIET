@@ -211,7 +211,7 @@ function handleAddSociete() {
 }
 
 
-import FormSociete from './FormSociete.vue'
+import FormSociete from './FormSociete.vue';
 
 const formSociete = ref(false)
 

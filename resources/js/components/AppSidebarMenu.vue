@@ -214,9 +214,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from 'vue'
-import { router } from "@inertiajs/vue3"
-import AppSidebarHeader from './AppSidebarHeader.vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue';
+import { router } from "@inertiajs/vue3";
+import AppSidebarHeader from './AppSidebarHeader.vue';
+
 interface SubmenuItem {
   label: string
   icon: string
@@ -254,7 +255,33 @@ const alt = () => {
   router.get(route("societe.alt"));
 }
 
+const LAD = () => {
+  router.get(route("AyantsEndroit.LAD"));
+}
 
+const Badges = () => {
+  router.get(route("AyantsEndroit.Badges"));
+}
+
+const Qrcode = () => {
+  router.get(route("AyantsEndroit.Qrcode"));
+}
+
+const SuiviA = () => {
+  router.get(route("AyantsEndroit.SuiviA"));
+}
+
+const Infos = () => {
+  router.get(route("AyantsEndroit.Infos"));
+}
+
+const Benefices = () => {
+  router.get(route("AyantsEndroit.Benefices"));
+}
+
+const Historie = () => {
+  router.get(route("AyantsEndroit.Historie"));
+}
 
 // === Données des menus ===
 const allMenus: MenuItem[] = [
@@ -281,13 +308,13 @@ const allMenus: MenuItem[] = [
     hoverColor: '#754EA7',
     icon: 'fas fa-users',
     submenuItems: [
-      { label: 'Liste des Ayants Droits', icon: 'fas fa-list' },
-      { label: 'Gestion des Badges', icon: 'fas fa-id-badge' },
-      { label: 'Gestion QR Code', icon: 'fas fa-qrcode' },
-      { label: 'Suivi Adhésions', icon: 'fas fa-clipboard-check' },
-      { label: 'Infos Personnelles', icon: 'fas fa-info-circle' },
-      { label: 'Bénéficiaires', icon: 'fas fa-user-friends' },
-      { label: 'Historique', icon: 'fas fa-history' }
+      { label: 'Liste des Ayants Droits', icon: 'fas fa-list', action: LAD },
+      { label: 'Gestion des Badges', icon: 'fas fa-id-badge', action: Badges },
+      { label: 'Gestion QR Code', icon: 'fas fa-qrcode', action: Qrcode },
+      { label: 'Suivi Adhésions', icon: 'fas fa-clipboard-check', action: SuiviA },
+      { label: 'Infos Personnelles', icon: 'fas fa-info-circle', action: Infos },
+      { label: 'Bénéficiaires', icon: 'fas fa-user-friends', action: Benefices },
+      { label: 'Historique', icon: 'fas fa-history', action: Historie },
     ]
   },
   {

@@ -1,5 +1,5 @@
 <template>
-  <FormModal :open="visible" title="Nouvelle une société" @ok="submitForm" cancelText="Fermer" okText="ENREGISTRER"
+  <FormModal :open="visible" title="Ajouter" @ok="submitForm" cancelText="Fermer" okText="ENREGISTRER"
     @cancel="visible = false">
     <a-form layout="vertical" class="grid grid-cols-1 md:grid-cols-2" ref="formRef" :model="newSociete"
       @finish="handleAddSociete">
@@ -46,7 +46,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import FormModal from '@/components/Utils/FormModal.vue'
+import FormModal from '@/components/Utils/FormModal.vue';
 
 const visible = ref(false)
 const formRef = ref()

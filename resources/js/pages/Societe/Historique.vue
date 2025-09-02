@@ -1,22 +1,18 @@
 <template>
     <AppSidebarLayout>
         <div class="p-4">
-            <div class="bg-white space-y-4 rounded-lg">                                                   
-                <DataTable
-                    :columns="columns"
-                    :data="data"
-                    class="main-shadow mt-5"
-                    :show-index="true"
-                    :actions="actions" >
+            <div class="bg-white space-y-4 rounded-lg">
+                <DataTable :columns="columns" :data="data" class="main-shadow mt-5" :show-index="true"
+                    :actions="actions">
 
                     <template #default="{ column, record, text }">
                         <template v-if="column.key === 'act'">
-                           <span class="text-blue-600">{{ text }}</span>
+                            <span class="text-blue-600">{{ text }}</span>
                         </template>
                     </template>
 
                 </DataTable>
-                
+
             </div>
         </div>
     </AppSidebarLayout>
@@ -72,9 +68,9 @@ const data = {
 
 
 const actions = [
-    {text: "Modifier", action: (record) => formModal.value.update(record), icon: 'fa-pen-to-square', class:"bg-green-100 !text-red-500"},
-    {text: "Supprimer",action: 'handleDelete',icon: 'fa-trash', },
-    {text: "Voir",action: 'handleDelete',icon: 'fa-edit', },
+    { text: "Modifier", action: (record) => formModal.value.update(record), icon: 'fa-pen-to-square', class: "bg-green-100 !text-red-500" },
+    { text: "Supprimer", action: 'handleDelete', icon: 'fa-trash', },
+    { text: "Voir", action: 'handleDelete', icon: 'fa-edit', },
 ]
 </script>
 <style></style>
