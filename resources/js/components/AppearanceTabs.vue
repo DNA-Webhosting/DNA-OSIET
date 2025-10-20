@@ -1,31 +1,73 @@
 <script setup lang="ts">
+import { useForm } from '@inertiajs/vue3';
+import { computed } from 'vue';
+
+import { Button } from '@/components/ui/button';
 import { useAppearance } from '@/composables/useAppearance';
-import { Monitor, Moon, Sun } from 'lucide-vue-next';
 
-const { appearance, updateAppearance } = useAppearance();
+const { appearance } = useAppearance();
 
-const tabs = [
-    { value: 'light', Icon: Sun, label: 'Light' },
-    { value: 'dark', Icon: Moon, label: 'Dark' },
-    { value: 'system', Icon: Monitor, label: 'System' },
-] as const;
+const isDark = computed(() => appearance.value === 'dark' || (appearance.value === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches));
+
+const form = useForm({
+    theme: isDark.value ? 'dark' : 'light',
+});
+
+const setTheme = (theme: 'light' | 'dark' | 'system') => {
+    form.theme = theme;
+
+    form.patch(route('appearance.update'), {
+        preserveState: true,
+        preserveScroll: true,
+    });
+};
 </script>
 
 <template>
-    <div class="inline-flex gap-1 rounded-lg bg-neutral-100 p-1 dark:bg-neutral-800">
-        <button
-            v-for="{ value, Icon, label } in tabs"
-            :key="value"
-            @click="updateAppearance(value)"
-            :class="[
-                'flex items-center rounded-md px-3.5 py-1.5 transition-colors',
-                appearance === value
-                    ? 'bg-white shadow-xs dark:bg-neutral-700 dark:text-neutral-100'
-                    : 'text-neutral-500 hover:bg-neutral-200/60 hover:text-black dark:text-neutral-400 dark:hover:bg-neutral-700/60',
-            ]"
-        >
-            <component :is="Icon" class="-ml-1 h-4 w-4" />
-            <span class="ml-1.5 text-sm">{{ label }}</span>
-        </button>
+    <div class="grid max-w-md grid-cols-3 gap-6">
+        <div class="flex flex-col items-center space-y-4">
+            <Button
+                variant="outline"
+                class="h-20 w-full"
+                :class="{ 'ring-2 ring-ring': form.theme === 'light' }"
+                @click="setTheme('light')"
+            >
+                <div class="flex items-center space-x-2">
+                    <div class="h-4 w-4 rounded-full bg-[#ecedef]" />
+                    <div class="h-2 w-10 rounded-lg bg-[#ecedef]" />
+                </div>
+            </Button>
+            <p class="text-sm">Light</p>
+        </div>
+
+        <div class="flex flex-col items-center space-y-4">
+            <Button
+                variant="outline"
+                class="h-20 w-full bg-neutral-950"
+                :class="{ 'ring-2 ring-ring': form.theme === 'dark' }"
+                @click="setTheme('dark')"
+            >
+                <div class="flex items-center space-x-2">
+                    <div class="h-4 w-4 rounded-full bg-neutral-600" />
+                    <div class="h-2 w-10 rounded-lg bg-neutral-600" />
+                </div>
+            </Button>
+            <p class="text-sm">Dark</p>
+        </div>
+
+        <div class="flex flex-col items-center space-y-4">
+            <Button
+                variant="outline"
+                class="h-20 w-full"
+                :class="{ 'ring-2 ring-ring': form.theme === 'system' }"
+                @click="setTheme('system')"
+            >
+                <div class="flex items-center space-x-2">
+                    <div class="h-4 w-4 rounded-full bg-neutral-500" />
+                    <div class="h-2 w-10 rounded-lg bg-neutral-500" />
+                </div>
+            </Button>
+            <p class="text-sm">System</p>
+        </div>
     </div>
 </template>
