@@ -1,7 +1,6 @@
 import '../css/app.css';
 
 import { createInertiaApp } from '@inertiajs/vue3';
-import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import type { DefineComponent } from 'vue';
 import { createApp, h } from 'vue';
 import { ZiggyVue } from 'ziggy-js';
@@ -15,11 +14,34 @@ const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
 createInertiaApp({
     title: (title) => (title ? `${title} - ${appName}` : appName),
-    resolve: (name) =>
-        resolvePageComponent(
-            `./pages/${name}.vue`,
-            import.meta.glob<DefineComponent>('./pages/**/*.vue')
-        ),
+    resolve: async (name: string): Promise<DefineComponent> => {
+        const modulePages = import.meta.glob('../../Modules/*/resources/js/pages/**/*.vue', {
+            eager: true
+        });
+        const appPages = import.meta.glob<{ default: DefineComponent }>('./pages/**/*.vue', {
+            eager: true
+        });
+
+        if (name.includes('::')) {
+          const [module, pagePath] = name.split('::');
+
+          for (const path in modulePages) {
+            if (path.includes(`Modules/${module}/`) && path.endsWith(`${pagePath}.vue`)) {
+              return (modulePages[path] as { default: DefineComponent }).default;
+            }
+          }
+
+          throw new Error(`Module page ${name} introuvable`);
+        }
+
+        for (const path in appPages) {
+          if (path.endsWith(`${name}.vue`)) {
+            return appPages[path].default;
+          }
+        }
+
+        throw new Error(`Page ${name} introuvable`);
+      },
     setup({ el, App, props, plugin }) {
         const app = createApp({ render: () => h(App, props) })
 

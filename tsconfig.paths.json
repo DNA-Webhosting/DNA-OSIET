@@ -4,6 +4,9 @@
         "paths": {
             "@/*": [
                 "./resources/js/*"
+            ],
+            "@/Adherent/*": [
+                "./Modules/Adherent/resources/js/*"
             ]
         }
     }
