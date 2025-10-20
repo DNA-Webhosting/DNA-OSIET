@@ -7,14 +7,10 @@ export function updateTheme(value: Appearance) {
         return;
     }
 
-    if (value === 'system') {
-        const mediaQueryList = window.matchMedia('(prefers-color-scheme: dark)');
-        const systemTheme = mediaQueryList.matches ? 'dark' : 'light';
+    const isDark =
+        value === 'dark' || (value === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
 
-        document.documentElement.classList.toggle('dark', systemTheme === 'dark');
-    } else {
-        document.documentElement.classList.toggle('dark', value === 'dark');
-    }
+    document.documentElement.classList.toggle('dark', isDark);
 }
 
 const setCookie = (name: string, value: string, days = 365) => {
