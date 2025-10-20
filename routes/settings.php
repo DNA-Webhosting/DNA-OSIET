@@ -21,4 +21,14 @@ Route::middleware('auth')->group(function () {
     Route::get('settings/appearance', function () {
         return Inertia::render('settings/Appearance');
     })->name('appearance');
+
+    Route::patch('settings/appearance', function () {
+        request()->validate([
+            'theme' => ['required', 'string', 'in:light,dark,system'],
+        ]);
+
+        session(['theme' => request('theme')]);
+
+        return back()->withCookie(cookie('theme', request('theme'), 60 * 24 * 365));
+    })->name('appearance.update');
 });

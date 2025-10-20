@@ -120,11 +120,11 @@
 
             <!-- Menu Items -->
             <div class="lg:py-1">
-              <a href="#"
+              <a :href="route('profile.update')"
                 class="flex items-center px-4 py-2 text-xs lg:text-sm text-gray-700 hover:bg-blue-100 hover:text-blue-600 transition-colors duration-200">
                 Mon Profil
               </a>
-              <a href="#"
+              <a :href="route('profile.update')"
                 class="flex items-center px-4 py-2 text-xs lg:text-sm text-gray-700 hover:bg-blue-100 hover:text-blue-600 transition-colors duration-200">
                 Paramètres
               </a>
@@ -136,8 +136,8 @@
 
             <!-- Logout -->
             <div class="border-t border-gray-100 py-1">
-              <a href="#"
-                class="flex items-center px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors duration-200">
+              <a :href="route('logout')" method="post" as="button"
+                class="flex items-center px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors duration-200 w-full">
                 Déconnexion
               </a>
             </div>
