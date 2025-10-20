@@ -5,8 +5,23 @@
             "@/*": [
                 "./resources/js/*"
             ],
-            "@/Adherent/*": [
-                "./Modules/Adherent/resources/js/*"
+            "@/Adherent_/*": [
+                "./Modules/Adherent_/resources/js/*"
+            ],
+            "@/Clinique_/*": [
+                "./Modules/Clinique_/resources/js/*"
+            ],
+            "@/Finance_/*": [
+                "./Modules/Finance_/resources/js/*"
+            ],
+            "@/ParcoursPatient_/*": [
+                "./Modules/ParcoursPatient_/resources/js/*"
+            ],
+            "@/Pharmacie_/*": [
+                "./Modules/Pharmacie_/resources/js/*"
+            ],
+            "@/Reporting_/*": [
+                "./Modules/Reporting_/resources/js/*"
             ]
         }
     }

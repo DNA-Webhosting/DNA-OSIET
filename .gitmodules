@@ -1,0 +1,18 @@
+[submodule "Modules/Adherent"]
+	path = Modules/Adherent
+	url = git@github.com:DNA-Webhosting/dna-osiet-adherent.git
+[submodule "Modules/Clinique"]
+	path = Modules/Clinique
+	url = git@github.com:DNA-Webhosting/dna-osiet-clinique.git
+[submodule "Modules/Finance"]
+	path = Modules/Finance
+	url = git@github.com:DNA-Webhosting/dna-osiet-finance.git
+[submodule "Modules/Pharmacie"]
+	path = Modules/Pharmacie
+	url = git@github.com:DNA-Webhosting/dna-osiet-pharmacie.git
+[submodule "Modules/Reporting"]
+	path = Modules/Reporting
+	url = git@github.com:DNA-Webhosting/dna-osiet-reporting.git
+[submodule "Modules/ParcoursPatient"]
+	path = Modules/ParcoursPatient
+	url = git@github.com:DNA-Webhosting/dna-osiet-parcourspatient.git

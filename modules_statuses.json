@@ -1,2 +1,8 @@
 {
+    "Adherent": true,
+    "ParcoursPatient": true,
+    "Clinique": true,
+    "Pharmacie": true,
+    "Finance": true,
+    "Reporting": true
 }
