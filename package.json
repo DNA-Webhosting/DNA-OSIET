@@ -7,10 +7,13 @@
         "dev": "vite",
         "format": "prettier --write resources/",
         "format:check": "prettier --check resources/",
-        "lint": "eslint . --fix"
+        "lint": "eslint . --fix",
+        "postinstall": "node generate-tsconfig-paths.cjs",
+        "generate:paths": "node generate-tsconfig-paths.cjs"
     },
     "devDependencies": {
         "@eslint/js": "^8.57.0",
+        "@types/node": "^22.13.5",
         "@vue/eslint-config-typescript": "^12.0.0",
         "eslint": "^8.57.0",
         "eslint-config-prettier": "^9.0.0",
@@ -18,6 +21,7 @@
         "prettier": "^3.4.2",
         "prettier-plugin-organize-imports": "^4.1.0",
         "prettier-plugin-tailwindcss": "^0.6.11",
+        "typescript": "^5.2.2",
         "typescript-eslint": "^7.0.0",
         "unplugin-vue-components": "^29.0.0",
         "vue-tsc": "^2.2.4"
@@ -38,7 +42,7 @@
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
         "concurrently": "^9.0.1",
-        "laravel-vite-plugin": "^1.0.0",
+        "laravel-vite-plugin": "^2.0.0",
         "lucide-vue-next": "^0.468.0",
         "reka-ui": "^2.2.0",
         "tailwind-merge": "^3.2.0",
