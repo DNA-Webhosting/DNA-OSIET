@@ -1,0 +1,1 @@
+- Message de commit toujours en francais, utilisant les mot clé standard de commit.
