@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'DNA Webhosting',
             'email' => 'contact@dna.mg',
+            'password'=> 'password',
         ]);
     }
 }
